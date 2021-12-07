@@ -29,7 +29,13 @@ material.color = new THREE.Color(0x292929)
 
 // Mesh
 const sphere = new THREE.Mesh(geometry,material)
+
 scene.add(sphere)
+
+//Axes Helper
+const axesHelper = new THREE.AxesHelper()
+scene.add(axesHelper)
+
 
 // Lights
 
@@ -80,7 +86,7 @@ const sizes = {
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
 camera.position.x = 0
 camera.position.y = 0
-camera.position.z = 2
+camera.position.z = 3
 scene.add(camera)
 
 // Controls
@@ -110,7 +116,9 @@ const tick = () =>
 
     // Update objects
     sphere.rotation.y = .5 * elapsedTime
-
+    sphere.rotation.x  = .5 * elapsedTime
+    sphere.position.y  = .5 * elapsedTime
+    sphere.position.z  = .5 * elapsedTime
     // Update Orbital Controls
     // controls.update()
 
