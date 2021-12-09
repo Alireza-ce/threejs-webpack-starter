@@ -33,8 +33,8 @@ const sphere = new THREE.Mesh(geometry,material)
 scene.add(sphere)
 
 //Axes Helper
-const axesHelper = new THREE.AxesHelper()
-scene.add(axesHelper)
+// const axesHelper = new THREE.AxesHelper()
+// scene.add(axesHelper)
 
 
 // Lights
@@ -49,11 +49,16 @@ pointLight2.position.set(2,3,4)
 pointLight2.intensity = 2
 scene.add(pointLight2)
 
-gui.add(pointLight2,'intensity')
+const pointLight3 = new THREE.PointLight(0xff0000)
+pointLight3.position.set(0,0,1)
+pointLight3.intensity = 2
+scene.add(pointLight3)
 
-gui.add(pointLight2.position,'y')
-gui.add(pointLight2.position,'x')
-gui.add(pointLight2.position,'z')
+gui.add(pointLight3,'intensity')
+
+gui.add(pointLight3.position,'y','-100','100','1')
+gui.add(pointLight3.position,'x','-100','100','1')
+gui.add(pointLight3.position,'z','-100','100','1')
 
 
 /**
@@ -96,6 +101,12 @@ scene.add(camera)
 /**
  * Renderer
  */
+
+
+
+ const controls = new OrbitControls( camera, canvas );
+ controls.enableDamping = true;
+
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
     alpha:true
@@ -113,14 +124,12 @@ const tick = () =>
 {
 
     const elapsedTime = clock.getElapsedTime()
-
+    
     // Update objects
-    sphere.rotation.y = .5 * elapsedTime
-    sphere.rotation.x  = .5 * elapsedTime
-    sphere.position.y  = .5 * elapsedTime
-    sphere.position.z  = .5 * elapsedTime
+    sphere.rotation.y =  Math.cos(elapsedTime)
+
     // Update Orbital Controls
-    // controls.update()
+    controls.update()
 
     // Render
     renderer.render(scene, camera)
